@@ -1,0 +1,25 @@
+<html>
+<header>
+<meta http-equiv="refresh" content="3" >
+</header>
+<body>
+<canvas id="myCanvas" width="500" height="500" style="border:1px solid #000000;"></canvas>
+
+<script>
+var canvas = document.getElementById('myCanvas');
+var ctx = canvas.getContext('2d');
+var poly=[ Poly! ];
+
+ctx.lineWidth = 1.5;
+ctx.strokeStyle = 'red';
+
+ctx.beginPath();
+ctx.moveTo(poly[0], poly[1]);
+for( item=2 ; item < poly.length-1 ; item+=2 ){ctx.lineTo( poly[item] , poly[item+1] )}
+
+ctx.stroke();
+</script>
+
+<h1>Hello, World!</h1>
+</body>
+</html>
