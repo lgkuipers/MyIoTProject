@@ -20,6 +20,7 @@ fs.readFile('index.html', function (err, data) {
 });
 
 http.createServer( function (request,response) {
+  console.log(request.url);
   switch(request.url) {
     case '/':
       valueslist = fs.readFileSync('values.txt').toString();
@@ -51,9 +52,34 @@ http.createServer( function (request,response) {
         });
       };
       break;
+    case '/value' :
+      valueslist = fs.readFileSync('values.txt').toString();
+      var valueslist2 = valueslist.replace(/(?:\r\n|\r|\n)/g,",");
+      var valuesarray = valueslist2.split(',');
+      var point = valuesarray[valuesarray.length-2];
+      console.log('value'+point);
+      var levelvalue = point;
+      var data = { level :levelvalue };
+      var json = JSON.stringify(data);
+      response.writeHead( 200, {'Content-Type': 'application/json'});
+      response.end(json);
+      break;
+    case '/menu' :
+      menuslist = fs.readFileSync('menus.txt').toString();
+      var menuslist2 = menuslist.replace(/(?:\r\n|\r|\n)/g,",");
+      var menusarray = menuslist2.split(',');
+      var low = 0;
+      var high = menusarray.length-2;
+      var i = Math.floor(Math.random() * (high - low + 1) + low);
+      var menu = menusarray[i];
+      console.log('menu '+menu);
+      var menuvalue = menu;
+      var data = { menu :menuvalue };
+      var json = JSON.stringify(data);
+      response.writeHead( 200, {'Content-Type': 'application/json'});
+      response.end(json);
+      break;
   };
-  response.writeHead( 200, {'Content-Type': 'text/plain'});
-  response.end('Hello world\n');
 }).listen(3000);
 
 console.log('Server running at http://127.0.0.1:3000/'); 
